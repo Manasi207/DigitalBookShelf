@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Search Example</title>
+</head>
+<body>
+
+  <h1>Search with Voice</h1>
+  
+  <!-- Search Form -->
+  <form id="searchForm">
+    <input type="text" id="searchInput" placeholder="Say something..." />
+    <button type="button" id="voiceBtn">🎤 Voice Search</button>
+    <button type="submit">Search</button>
+  </form>
+
+  <p id="status"></p>
+
+  <script >// script.js
+
+    // Check if the browser supports speech recognition
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    // If supported, initialize speech recognition
+    if ('SpeechRecognition' in window) {
+      const recognition = new SpeechRecognition();
+      recognition.interimResults = false;  // Only capture the final result
+      recognition.lang = 'en-US';          // Set language to English (adjust as needed)
+    
+      // Reference to input field and button
+      const searchInput = document.getElementById('searchInput');
+      const voiceBtn = document.getElementById('voiceBtn');
+      const status = document.getElementById('status');
+    
+      // Event Listener for Voice Search Button
+      voiceBtn.addEventListener('click', () => {
+        recognition.start();  // Start voice recognition
+        status.textContent = "Listening...";
+      });
+    
+      // When speech recognition successfully captures input
+      recognition.addEventListener('result', (event) => {
+        const transcript = event.results[0][0].transcript;  // Get the spoken words
+        searchInput.value = transcript;  // Populate the input field with the voice data
+        status.textContent = "Recognized: " + transcript;
+      });
+    
+      // When speech recognition ends
+      recognition.addEventListener('end', () => {
+        status.textContent = "You can try again by clicking the voice button.";
+      });
+    
+    } else {
+      alert('Sorry, your browser does not support Speech Recognition.');
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to Speech Converter</title>
+</head>
+<body>
+  <h2>PDF to Speech Converter</h2>
+
+  <label for="file">Upload PDF:</label>
+  <input type="file" id="file" accept="application/pdf">
+
+  <br><br>
+
+  <label for="language">Select Language:</label>
+  <select id="language">
+    <option value="en-US">English</option>
+    <option value="hi-IN">Hindi</option>
+    <option value="mr-IN">Marathi</option>
+  </select>
+  
+  <br><br>
+
+  <button onclick="readPDF()">Read and Speak PDF</button>
+
+  <p id="pdfText" style="white-space: pre-wrap;"></p>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+  <script>// Function to read PDF file
+    function readPDF() {
+      const fileInput = document.getElementById('file');
+      const language = document.getElementById('language').value;
+    
+      if (fileInput.files.length === 0) {
+        alert('Please upload a PDF file.');
+        return;
+      }
+    
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+    
+      reader.onload = function () {
+        const typedArray = new Uint8Array(this.result);
+        pdfjsLib.getDocument(typedArray).promise.then(function (pdf) {
+          let pdfText = '';
+    
+          // Read all the pages of the PDF
+          const numPages = pdf.numPages;
+          let pagesPromises = [];
+    
+          for (let i = 1; i <= numPages; i++) {
+            pagesPromises.push(
+              pdf.getPage(i).then(function (page) {
+                return page.getTextContent().then(function (textContent) {
+                  const pageText = textContent.items.map(item => item.str).join(' ');
+                  pdfText += pageText + '\n';
+                });
+              })
+            );
+          }
+    
+          // When all the pages are processed
+          Promise.all(pagesPromises).then(function () {
+            document.getElementById('pdfText').textContent = pdfText; // Display PDF content
+            speakText(pdfText, language); // Speak the PDF text
+          });
+        });
+      };
+    
+      reader.readAsArrayBuffer(file);
+    }
+    
+    // Function to speak text using the selected language
+    function speakText(text, language) {
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = language;
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert('Sorry, your browser does not support speech synthesis.');
+      }
+    }
+    </script>
+</body>
+</html>

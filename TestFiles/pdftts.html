@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List with TTS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .book-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .view-icon, .tts-icon {
+            cursor: pointer;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 5px;
+            border: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .view-icon:hover, .tts-icon:hover {
+            background-color: #0056b3;
+        }
+
+        .custom-select {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .custom-select select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+</head>
+<body>
+
+    <h1>Book List</h1>
+
+    <!-- Book 1 Card -->
+    <div class="book-card">
+        <h3>Book 1: The Adventures of John Doe</h3>
+        <p>Author: John Doe</p>
+        <a class="view-icon" href="books/WT_Pr2.pdf" download="Book1_TheAdventuresOfJohnDoe.pdf">Download PDF</a>
+        <button class="tts-icon" onclick="toggleLanguageDropdown()">Read Aloud</button>
+
+        <div class="custom-select" id="language-dropdown">
+            <select id="language-select" onchange="readPDF('books/WT_Pr2.pdf')">
+                <option value="en-US">English</option>
+                <option value="hi-IN">Hindi</option>
+                
+                <option value="mr-IN">Marathi</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        let voices = [];
+
+        // Load available voices
+        function loadVoices() {
+            voices = speechSynthesis.getVoices();
+        }
+
+        // Show/hide the language dropdown
+        function toggleLanguageDropdown() {
+            const languageDropdown = document.getElementById('language-dropdown');
+            languageDropdown.style.display = languageDropdown.style.display === 'none' || languageDropdown.style.display === '' ? 'block' : 'none';
+            loadVoices(); // Load voices when dropdown is shown
+        }
+
+        // Read PDF and speak text in selected language
+        function readPDF(pdfUrl) {
+            const loadingTask = pdfjsLib.getDocument(pdfUrl);
+            loadingTask.promise.then(pdf => {
+                let textContent = '';
+
+                // Read the first page (you can modify this to read more pages if needed)
+                pdf.getPage(1).then(page => {
+                    return page.getTextContent();
+                }).then(text => {
+                    text.items.forEach(item => {
+                        textContent += item.str + ' '; // Concatenate text strings
+                    });
+
+                    // Use Web Speech API for TTS
+                    const utterance = new SpeechSynthesisUtterance(textContent);
+                    const selectedLanguage = document.getElementById('language-select').value;
+
+                    // Find the voice that matches the selected language
+                    const selectedVoice = voices.find(voice => voice.lang === selectedLanguage);
+                    if (selectedVoice) {
+                        utterance.voice = selectedVoice; // Set the voice
+                    }
+
+                    // Speak the text
+                    window.speechSynthesis.speak(utterance);
+                });
+            }).catch(error => {
+                console.error('Error loading PDF:', error);
+            });
+        }
+
+        // Load voices when the page is ready
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    </script>
+
+</body>
+</html>

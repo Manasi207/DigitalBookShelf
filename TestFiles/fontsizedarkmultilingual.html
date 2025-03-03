@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Language Detection and Theme Toggle</title>
+    <style>
+        body {
+            font-size: 16px;
+            background-color: white;
+            color: black;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Welcome to My Website</h1>
+    <p id="content">This is some text on the website. Automatically translate into Hindi or Marathi based on user preference.</p>
+
+    <!-- Language Selection Dropdown -->
+    <select id="language-selector" onchange="translatePage()">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="mr">Marathi</option>
+    </select>
+
+    <!-- Controls for Font Size -->
+    <button onclick="changeFontSize('increase')">Increase Font Size</button>
+    <button onclick="changeFontSize('decrease')">Decrease Font Size</button>
+
+    <!-- Toggle for Dark/Light Mode -->
+    <button onclick="toggleDarkMode()">Toggle Dark/Light Mode</button>
+
+    <!-- Google Translate Element -->
+    <div id="google_translate_element"></div>
+
+    <!-- JavaScript for functionality -->
+    <script>
+        // Font size change functionality
+        function changeFontSize(action) {
+            const body = document.body;
+            let currentFontSize = parseFloat(window.getComputedStyle(body).fontSize);
+            if (action === 'increase') {
+                body.style.fontSize = (currentFontSize + 1) + 'px';
+            } else if (action === 'decrease') {
+                body.style.fontSize = (currentFontSize - 1) + 'px';
+            }
+        }
+
+        // Dark/Light mode toggle functionality
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Google Translate function to handle language switching
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+
+        // Load Google Translate API script dynamically
+        function loadGoogleTranslateScript() {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            document.body.appendChild(script);
+        }
+
+        // Function to trigger Google Translate based on the dropdown
+        function translatePage() {
+            const language = document.getElementById('language-selector').value;
+            const googleTranslate = document.querySelector('.goog-te-combo');
+            if (googleTranslate) {
+                googleTranslate.value = language;
+                googleTranslate.dispatchEvent(new Event('change'));
+            }
+        }
+
+        // Detect user language and load Google Translate
+        function detectLanguageAndTranslate() {
+            let userLang = navigator.language || navigator.userLanguage;
+            userLang = userLang.slice(0, 2); // Get language code like 'en', 'hi', 'mr'
+
+            const supportedLanguages = ['en', 'hi', 'mr']; // Supported languages
+            if (!supportedLanguages.includes(userLang)) {
+                userLang = 'en'; // Default to English
+            }
+
+            // Set language in the dropdown
+            document.getElementById('language-selector').value = userLang;
+
+            // Load Google Translate API script
+            loadGoogleTranslateScript();
+        }
+
+        // Initialize on page load
+        window.onload = detectLanguageAndTranslate;
+    </script>
+</body>
+</html>

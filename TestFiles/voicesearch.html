@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Search Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px;
+        }
+
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-button, .voice-button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-left: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover, .voice-button:hover {
+            background-color: #0056b3;
+        }
+
+        .voice-button i {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Voice Search Bar</h1>
+
+    <!-- Search Bar Container -->
+    <div class="search-container">
+        <input type="text" id="search-bar" class="search-bar" placeholder="Type or Speak your search">
+        <button class="search-button" onclick="performSearch()">Search</button>
+        <button class="voice-button" onclick="startVoiceSearch()"><i class="fa fa-microphone"></i></button>
+    </div>
+
+    <script>
+        // Function to simulate search
+        function performSearch() {
+            const searchQuery = document.getElementById('search-bar').value;
+            alert('You searched for: ' + searchQuery);
+        }
+
+        // Function to start voice recognition for search
+        function startVoiceSearch() {
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.lang = 'en-US'; // Set the language for speech recognition
+                recognition.continuous = false;
+                recognition.interimResults = false;
+
+                // When the recognition returns a result
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('search-bar').value = transcript; // Set the recognized text in search bar
+                    performSearch(); // Automatically perform search
+                };
+
+                recognition.onerror = function(event) {
+                    alert('Voice search error: ' + event.error);
+                };
+
+                recognition.start(); // Start the speech recognition
+            } else {
+                alert('Voice search is not supported in this browser. Please use Chrome or any modern browser.');
+            }
+        }
+    </script>
+
+    <!-- Font Awesome for microphone icon (optional, you can replace with a different icon if needed) -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

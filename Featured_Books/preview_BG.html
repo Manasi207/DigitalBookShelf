@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- site icon / thumbnail -->
+
+        <link rel="icon" type="x-icon" href="b1.png">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <!-- 
+        - custom css link
+       -->
+        <link rel="stylesheet" href="style_feature.css">
+
+        
+
+        <!-- 
+            - google font link
+        -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+            rel="stylesheet">
+            <!-- 
+            - preload image
+        -->
+        <link rel="preload" as="image" href="./assets_feature/hero-banner.png">
+           
+      
+</head>
+
+<body>
+  <!-- js file -->
+  <script src="script_feature.js" defer></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- 
+        - #PREVIEW
+      -->
+
+      <!-- <div class="container"> -->
+        <!-- <h1 class="section-title">Featured Books</h1> -->
+        <!-- <p class="section-subtitle">Chapter Preview</p> -->
+
+        <!-- <h2 class="h2 section-title has-underline"> -->
+         <!-- Things I Never Said -->
+          <!-- <span class="span has-before"></span> -->
+        <!-- </h2> -->
+
+      <section class="section preview" aria-label="preview">
+        <div class="container">
+
+          <p class="section-subtitle">Book Preview</p>
+
+          <h2 class="h2 section-title has-underline">
+            BORING GIRLS - A NOVEL SARA TAYLOR
+            <span class="span has-before"></span>
+          </h2>
+
+          <ul class="tab-list">
+
+            <li>
+              <div class="tab-card active" data-tab-card>
+                <h3 class="h3 tab-text">INTRODUCTION</h3>
+
+                <img src="./assets_feature/BG_Intro.png" width="820" height="630" loading="lazy" alt="Chapter 1"
+                  class="w-100">
+              </div>
+            </li>
+
+            <li>
+              <div class="tab-card " data-tab-card>
+                <h3 class="h3 tab-text">Lesson One</h3>
+
+                <img src="./assets_feature/BG_1.png" width="820" height="630" loading="lazy" alt="Chapter 2"
+                  class="w-100">
+              </div>
+            </li>
+
+            <li>
+              <div class="tab-card" data-tab-card>
+                <h3 class="h3 tab-text">LessonSecond</h3>
+
+                <img src="./assets_feature/BG_2.png" width="820" height="630" loading="lazy" alt="Chapter 3"
+                  class="w-100">
+              </div>
+            </li>
+
+            <li>
+              <div class="tab-card" data-tab-card>
+                <h3 class="h3 tab-text">Lesson Third</h3>
+
+                <img src="./assets_feature/BG_3.png" width="820" height="630" loading="lazy" alt="Chapter 4"
+                  class="w-100">
+              </div>
+            </li>
+
+            <li>
+              <div class="tab-card" data-tab-card>
+                <h3 class="h3 tab-text">LessonFourth</h3>
+
+                <img src="./assets_feature/BG_4.png" width="820" height="630" loading="lazy" alt="Chapter 5"
+                  class="w-100">
+              </div>
+            </li>
+
+            <li>
+              <div class="tab-card" data-tab-card>
+                <h3 class="h3 tab-text">LessonFifth</h3>
+
+                <img src="./assets_feature/BG_5.png" width="820" height="630" loading="lazy" alt="Chapter 5"
+                  class="w-100">
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+      
+      <section class="section pricing" id="pricing" aria-label="pricing">
+        <div class="container">
+    
+            <p class="section-subtitle">Pricing</p>
+    
+            <h2 class="h2 section-title has-underline">
+              Buy E-Book Online
+                <span class="span has-before"> </span>
+            </h2>
+    
+            <ul class="grid-list">
+              <li>
+                <div class="# ">
+                    
+                </div>
+            </li>
+                <li>
+                    <div class="pricing-card bundle">
+                        <h3 class="h3 card-title">E-Book</h3>
+                        <data class="price" value="15">&#8377; 250</data>
+                        <ul class="pricing-card-list">
+                            <li class="card-item">
+                                <p class="card-text"></p>
+                            </li>
+                            <li class="card-item">
+                                <p class="card-text">Download PDF </p>
+                            </li>
+                            <li class="card-item">
+                                <p class="card-text"></p>
+                            </li>
+                        </ul>
+                        <a  href="payment_BG.html">
+                          <button class="btn btn-primary">BUY NOW</button>
+                        </a>
+                        
+                    </div>
+                </li>
+                <li>
+                  <div class="# ">
+                      
+                  </div>
+              </li>
+            </ul>
+    
+        </div>
+    </section>
+    
+    <!-- Back Arrow to Home at Bottom Left Corner
+    <a href="home.html" id="back-btn" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+    </a> -->
+
+
+</body>
+<script>
+  // Function to get URL parameters
+  function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+  }
+
+  // Function to play voice note based on URL parameter (e.g., book selection)
+  function playVoiceNoteForBook() {
+      const selectedBook = getQueryParam("book");
+
+      if (selectedBook === "boring girls") {
+          const voiceNote = new SpeechSynthesisUtterance("If you want to download the PDF of the book, say 'buy now'. If you don't want to download the PDF, say 'go back'.");
+          window.speechSynthesis.speak(voiceNote);
+
+          voiceNote.onend = () => {
+              listenForUserCommand();  // Start listening after voice note finishes
+          };
+      }
+  }
+
+  // Function to listen for user response like 'buy now' or 'go back'
+  function listenForUserCommand() {
+      // Initialize speech recognition
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'en-US';
+
+      recognition.onresult = (event) => {
+          const userSpeech = event.results[0][0].transcript.toLowerCase();
+          console.log("User said: ", userSpeech);
+
+          if (userSpeech.includes("buy now")) {
+              const confirmation = new SpeechSynthesisUtterance("Redirecting to the payment page.");
+              window.speechSynthesis.speak(confirmation);
+
+              confirmation.onend = () => {
+                  window.location.href = "payment_BG.html";  // Redirect to payment page
+              };
+          } else if (userSpeech.includes("go back")) {
+              const goBackConfirmation = new SpeechSynthesisUtterance("Going back to home page.");
+              window.speechSynthesis.speak(goBackConfirmation);
+
+              goBackConfirmation.onend = () => {
+                window.location.href = "../index.html";  // Redirect to home page
+              };
+          } else {
+              const notRecognized = new SpeechSynthesisUtterance("Sorry, I didn't recognize that. Please say 'buy now' or 'go back'.");
+              window.speechSynthesis.speak(notRecognized);
+          }
+      };
+
+      // Start listening
+      recognition.start();
+  }
+
+  // Call the function to play the voice note based on the book selection
+  window.onload = function() {
+      playVoiceNoteForBook();  // Play note based on the selected book
+  };
+</script>
+
+</html>

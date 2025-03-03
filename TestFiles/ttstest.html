@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Explore Spiritual</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+        
+        function readPDFAndSpeak(pdfFile, language) {
+            const fullPath = 'http://localhost/Mini%20Project/Uploads/' + pdfFile;
+
+            console.log("Loading PDF:", fullPath);
+            
+            pdfjsLib.getDocument(fullPath).promise.then(function(pdf) {
+                console.log("PDF loaded successfully");
+                let totalPages = pdf.numPages;
+                let textPromises = [];
+
+                for (let pageIndex = 1; pageIndex <= totalPages; pageIndex++) {
+                    textPromises.push(
+                        pdf.getPage(pageIndex).then(function(page) {
+                            return page.getTextContent().then(function(textContent) {
+                                let pageText = textContent.items.map(item => item.str).join(' ');
+                                return pageText;
+                            });
+                        })
+                    );
+                }
+
+                Promise.all(textPromises).then(function(pagesText) {
+                    let fullText = pagesText.join(' ');
+                    console.log("Extracted Text:", fullText);
+
+                    if (fullText.trim() === '') {
+                        alert('No text found in the PDF to read.');
+                        return;
+                    }
+
+                    let utterance = new SpeechSynthesisUtterance(fullText);
+                    utterance.lang = language;
+                    utterance.rate = 1; 
+                    utterance.pitch = 1; 
+                    speechSynthesis.speak(utterance);
+                }).catch(function(error) {
+                    console.error('Error extracting text from PDF:', error);
+                    alert('Failed to read the PDF content.');
+                });
+            }).catch(function(error) {
+                console.error('Error loading PDF:', error);
+                alert('Failed to load the PDF.');
+            });
+        }
+    </script>
+</head>
+<body>
+    <button onclick="readPDFAndSpeak('WT_Pr2.pdf', 'en-US')">Read PDF</button>
+</body>
+</html>

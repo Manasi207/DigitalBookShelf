@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
+
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- 
+    - primary meta tags
+  -->
+  
+  <title>Digital BookShelf</title>
+  
+  <meta name="title" content="Bookish - Read More And Make Success">
+  <meta name="description"
+    content="Read More And Make Success The Result Of Perfection. - Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad harum quibusdam, assumenda quia explicabo.">
+<style>
+  
+/* Chat icon - message icon initially */
+#chat-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #0084ff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Chat icon container to position tooltip */
+#chat-icon-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tooltip styling */
+#tooltip {
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 140px;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
+
+#tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+/* Hide tooltip when chat is open */
+#chat-icon.hidden ~ #tooltip {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#chat-icon i {
+  font-size: 24px;
+}
+
+/* Close button (initially hidden) */
+#close-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #ff4f4f; /* Red color for close */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#close-btn i {
+  font-size: 24px;
+}
+
+/* Hide the close button by default */
+#close-btn.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Chatbot container */
+#chatbot {
+  position: fixed;
+  bottom: 100px; /* Adjusted to make space for the close button */
+  right: 20px;
+  width: 300px;
+  max-height: 400px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  overflow: hidden;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 1;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Chat header with microphone icon */
+#chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #0084ff;
+  color: white;
+  font-weight: bold;
+}
+
+#mic-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Chatbox */
+#chatbox {
+  height: 300px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  overflow-y: auto; /* Added for scrolling */
+}
+
+#messages {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  margin: 5px 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  max-width: 80%;
+}
+
+.user {
+  background-color: #0084ff;
+  color: white;
+  align-self: flex-end;
+}
+
+.bot {
+  background-color: #f1f0f0;
+  color: black;
+  align-self: flex-start;
+}
+
+/* Chat input area */
+#chat-input-area {
+  display: flex;
+  border-top: 1px solid #eee;
+}
+
+#user-input {
+  width: 80%;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+#send-btn {
+  width: 20%;
+  padding: 10px;
+  border: none;
+  background-color: #0084ff;
+  color: white;
+  cursor: pointer;
+}
+
+#send-btn i {
+  font-size: 18px;
+}
+
+/* Responsive behavior */
+@media screen and (max-width: 600px) {
+  #chatbot {
+      width: 90%;
+      right: 5%;
+      bottom: 100px; /* Adjusted for close button */
+  }
+
+  #chat-icon, #close-btn {
+      right: 5%;
+  }
+}
+
+/* Style for the microphone button when active */
+#mic-btn.active {
+  /* background-color: red; Change background color to red */
+  color: white; /* Change text color to white */
+  border: none; /* Remove border */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+/* Add the vibrate class for the animation */
+@keyframes vibrate {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(1); }
+  75% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.vibrate {
+  /*color: red; /* Change text color to red when active */
+  animation: vibrate 0.2s infinite; /* Apply vibration effect */
+}
+
+  /*   --------------------*/
+  .product-image a{
+    color: #fff;
+  }
+
+  .custom-footer {
+    background-color: hsl(20, 43%, 93%);;
+    color: hsl(304, 14%, 46%);
+    padding: 40px 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-content h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.footer-content p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-content ul li {
+    margin: 10px 0;
+}
+
+.footer-content ul li a {
+    color: hsl(304, 14%, 46%);
+    text-decoration: none;
+}
+
+.footer-content ul li a:hover {
+    text-decoration: underline;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links li {
+    display: inline;
+}
+
+.social-links i {
+    font-size: 20px;
+    color: hsl(304, 14%, 46%);
+}
+
+.footer-copyright {
+    text-align: center;
+    padding: 15px 0;
+    background-color:hsl(20, 43%, 93%);;
+    color: hsl(304, 14%, 46%);
+    font-size: 14px;
+}
+
+
+
+</style>
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="Themes.css">
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    
+
+  <!-- 
+    - preload image
+  -->
+  <link rel="preload" as="image" href="./assets/images/hero-banner.png">
+
+</head>
+
+<body style="background-color: hsl(20, 43%, 93%);font-family: 'Philosopher' , sans-serif;">
+
+  
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header >
+    <div class="container">
+
+      <a href="#" class="logo">Bookshelf</a>
+
+      <div class="search-box">
+        <input type="text" class="search-input" placeholder="Search" id="searchBox">
+        <button id="micButton" aria-label="Voice command">
+          <ion-icon name="mic-outline"></ion-icon>
+        </button>
+      </div>
+
+      <nav class="navbar" style="font-family:'Philosopher', sans-serif;" data-navbar>
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="#home" class="navbar-link" data-nav-link>Home</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#Themes" class="navbar-link" data-nav-link>Themes</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="Featured_Books/featured.html" class="navbar-link" data-nav-link>Featured Books</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#achievements" class="navbar-link" data-nav-link>Achievements</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#footer" class="navbar-link" data-nav-link>Contact</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="UserProfile.php" class="navbar-link" data-nav-link>
+              <ion-icon name="person-outline"></ion-icon> <!-- Profile icon -->
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
+        <ion-icon name="menu-outline" aria-hidden="true" class="open"></ion-icon>
+        <ion-icon name="close-outline" aria-hidden="true" class="close"></ion-icon>
+      </button>
+
+    </div>
+  </header>
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero" id="home" aria-label="home">
+        <div class="container">
+
+          <div class="hero-content">
+
+            <p class="section-subtitle">Let's Make The Best Investment</p>
+
+            <h1 class="h1 hero-title">Read More And Make Success The Result Of Perfection.</h1>
+
+            <p class="section-text">
+              As an intellectual object, a book is prototypically a composition of such great length
+that it takes a considerable investment of time to compose and still considered as an investment of time to read.
+            </p>
+
+          </div>
+
+          <div class="hero-banner has-before">
+            <img src="./assets/images/hero-banner.png" width="431" height="596"
+              alt="things i never said, a novel by claudia wilson" class="w-100">
+
+            
+          </div>
+
+        </div>
+      </section>
+  <!-- 
+    - #FOOTER
+  -->
+
+
+  <section id="Themes"><br><br>
+    <h1 class="heading"><span>THEMES</span>
+    </h1>
+    <div class="row">
+        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="10000">
+                <img src="images/1.jpg" class="d-block w-100" alt="..." style="width: 100%;position: absolute;">
+
+              </div>
+              <div class="carousel-item" data-bs-interval="2000">
+                <img src="images/4.png" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="images/5.png" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    </div>
+
+</section>
+
+
+<section class="product"> 
+    <!-- <h2 class="product-category">best selling</h2> -->
+    <button class="pre-btn"><img src="arrow.png" alt=""></button>
+    <button class="nxt-btn"><img src="arrow.png" alt=""></button>
+    <div class="product-container" style="justify-content: start;">
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="images/s1.png" class="product-thumb" alt="" style="object-fit: contain;">
+                <button class="card-btn"><a href="UserExploreSpiritual.php" style="text-decoration: none;">Explore</a></button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">Spiritual</h2>
+                <p class="product-short-description">a short line about the cloth..</p>
+                <!-- <span class="price">$20</span><span class="actual-price">$40</span> -->
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="images/f1.png" class="product-thumb" alt="" style="object-fit: contain;">
+                <button class="card-btn"><a href="UserExploreSpiritual.php" style="text-decoration: none;">Explore</a></button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">Fictional</h2>
+                <p class="product-short-description">a short line about the cloth..</p>
+                <!-- <span class="price">$20</span><span class="actual-price">$40</span> -->
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="images/b1.png" class="product-thumb" alt="" style="object-fit: contain;">
+                <button class="card-btn"><a href="UserExploreSpiritual.php" style="text-decoration: none;">Explore</a></button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">Biography</h2>
+                <p class="product-short-description">a short line about the cloth..</p>
+                <!-- <span class="price">$20</span><span class="actual-price">$40</span> -->
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="images/c1.png" class="product-thumb" alt="" style="object-fit: contain;">
+                <button class="card-btn"><a href="UserExploreSpiritual.php" style="text-decoration: none;">Explore</a></button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">Comics</h2>
+                <p class="product-short-description">a short line about the cloth..</p>
+                <!-- <span class="price">$20</span><span class="actual-price">$40</span> -->
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="images/s1.png" class="product-thumb" alt="">
+                <button class="card-btn"><a href="UserExploreSpiritual.php" style="text-decoration: none;">Explore</a></button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">brand</h2>
+                <p class="product-short-description">a short line about the cloth..</p>
+                <!-- <span class="price">$20</span><span class="actual-price">$40</span> -->
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="images/s1.png" class="product-thumb" alt="">
+                <button class="card-btn"><a href="UserExploreSpiritual.php" style="text-decoration: none;">Explore</a></button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">brand</h2>
+                <p class="product-short-description">a short line about the cloth..</p>
+                <!-- <span class="price">$20</span><span class="actual-price">$40</span> -->
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="images/s1.png" class="product-thumb" alt="">
+                <button class="card-btn"><a href="ExploreSpiritual.html" style="text-decoration: none;">Explore</a></button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">brand</h2>
+                <p class="product-short-description">a short line about the cloth..</p>
+                <!-- <span class="price">$20</span><span class="actual-price">$40</span> -->
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="images/card8.jpg" class="product-thumb" alt="">
+                <button class="card-btn"><a href="ExploreSpiritual.html" style="text-decoration: none;">Explore</a></button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">brand</h2>
+                <p class="product-short-description">a short line about the cloth..</p>
+                <!-- <span class="price">$20</span><span class="actual-price">$40</span> -->
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="images/card9.jpg" class="product-thumb" alt="">
+                <button class="card-btn"><a href="ExploreSpiritual.html" style="text-decoration: none;">Explore</a></button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">brand</h2>
+                <p class="product-short-description">a short line about the cloth..</p>
+                <!-- <span class="price">$20</span><span class="actual-price">$40</span> -->
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-tag">50% off</span>
+                <img src="images/card10.jpg" class="product-thumb" alt="">
+                <button class="card-btn"><a href="ExploreSpiritual.html" style="text-decoration: none;">Explore</a></button>
+            </div>
+            <div class="product-info">
+                <h2 class="product-brand">brand</h2>
+                <p class="product-short-description">a short line about the cloth..</p>
+                <!-- <span class="price">$20</span><span class="actual-price">$40</span> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+ <section class="section achievement" id="achievements" aria-label="achievement">
+        <div class="container">
+
+          <h3 class="h2 section-title has-underline">
+            Honor & Awards Achieved
+            <span class="span has-before"></span>
+          </h3>
+
+          <ul class="grid-list">
+
+            <li>
+              <div class="achievement-card">
+
+                <figure class="card-banner img-holder" style="--width: 450; --height: 300;">
+                  <img src="./assets/images/achievement-1.jpg" width="450" height="300" loading="lazy" alt="Nominated"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <img src="./assets/images/award.svg" width="80" height="80" loading="lazy" alt="trophy"
+                    class="abs-img">
+
+                  <h3 class="h3 card-title">Nominated</h3>
+
+                  <p class="card-text">
+                    International Thriller Writers Award for Best Novel (These Toxic Things)
+                  </p>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="achievement-card">
+
+                <figure class="card-banner img-holder" style="--width: 450; --height: 300;">
+                  <img src="./assets/images/achievement-2.jpg" width="450" height="300" loading="lazy" alt="Winner"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <img src="./assets/images/award.svg" width="80" height="80" loading="lazy" alt="trophy"
+                    class="abs-img">
+
+                  <h3 class="h3 card-title">Winner</h3>
+
+                  <p class="card-text">
+                    International Thriller Writers Award for Best Novel (These Toxic Things)
+                  </p>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="achievement-card">
+
+                <figure class="card-banner img-holder" style="--width: 450; --height: 300;">
+                  <img src="./assets/images/achievement-3.jpg" width="450" height="300" loading="lazy"
+                    alt="Guest of Honor" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <img src="./assets/images/award.svg" width="80" height="80" loading="lazy" alt="trophy"
+                    class="abs-img">
+
+                  <h3 class="h3 card-title">Guest of Honor</h3>
+
+                  <p class="card-text">
+                    International Thriller Writers Award for Best Novel (These Toxic Things)
+                  </p>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="achievement-card">
+
+                <figure class="card-banner img-holder" style="--width: 450; --height: 300;">
+                  <img src="./assets/images/achievement-4.jpg" width="450" height="300" loading="lazy" alt="Finalist"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <img src="./assets/images/award.svg" width="80" height="80" loading="lazy" alt="trophy"
+                    class="abs-img">
+
+                  <h3 class="h3 card-title">Finalist</h3>
+
+                  <p class="card-text">
+                    International Thriller Writers Award for Best Novel (These Toxic Things)
+                  </p>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="achievement-card">
+
+                <figure class="card-banner img-holder" style="--width: 450; --height: 300;">
+                  <img src="./assets/images/achievement-5.jpg" width="450" height="300" loading="lazy" alt="Winner"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <img src="./assets/images/award.svg" width="80" height="80" loading="lazy" alt="trophy"
+                    class="abs-img">
+
+                  <h3 class="h3 card-title">Winner</h3>
+
+                  <p class="card-text">
+                    International Thriller Writers Award for Best Novel (These Toxic Things)
+                  </p>
+
+                </div>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="achievement-card">
+
+                <figure class="card-banner img-holder" style="--width: 450; --height: 300;">
+                  <img src="./assets/images/achievement-1.jpg" width="450" height="300" loading="lazy" alt="Nominated"
+                    class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <img src="./assets/images/award.svg" width="80" height="80" loading="lazy" alt="trophy"
+                    class="abs-img">
+
+                  <h3 class="h3 card-title">Nominated</h3>
+
+                  <p class="card-text">
+                    International Thriller Writers Award for Best Novel (These Toxic Things)
+                  </p>
+
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+        
+  </section>
+  
+    <!---------------Chatbot floating icon with tooltip -->
+    <div id="chat-icon-container">
+      <div id="chat-icon" onclick="toggleChat()">
+          <i class="fas fa-comments"></i>
+      </div>
+      <div id="tooltip">
+          <span style=" color:#63acf1">We're Online!!</span>
+          <span  style=" color:#7f8082">How may I help you?</span>
+      </div>
+  </div>
+
+
+  <!-- Chatbot interface -->
+  <div id="chatbot" class="hidden">
+      <div id="chat-header">
+          <span>ChatBot</span>
+          <!-- Microphone icon -->
+          <button id="mic-btn" onclick="startVoiceInput()">
+              <i class="fas fa-microphone"></i>
+          </button>
+      </div>
+      <div id="chatbox">
+          <div id="messages"></div>
+      </div>
+      <div id="chat-input-area">
+          <input type="text" id="user-input" placeholder="Ask me anything...">
+          <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+  </div>
+
+  <!-- Close button for chatbot -->
+  <div id="close-btn" class="hidden" onclick="toggleChat()">
+      <i class="fas fa-times"></i>
+  </div>
+
+  <script src="chat_script.js"></script>
+
+
+<script src="Themes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+
+
+
+  <!-- <footer class="footer" id="contact">
+    <div class="container">
+
+      <div class="footer-top">
+
+        <a href="#" class="logo">Bookish</a>
+
+        <ul class="footer-list">
+
+          <li>
+            <a href="#" class="footer-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Themes</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Featured Book</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Achievement</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Contact</a>
+          </li>
+
+        </ul>
+
+      </div>
+        
+      <div class="footer-bottom">
+        <p class="copyright">
+          &copy; 2024 All right reserved. Made by TeamBookshelf.
+        </p>
+      </div>
+
+    </div>
+  </footer> -->
+
+  <footer class="custom-footer" id="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="about-section">
+                <h2>About Us</h2>
+                <p>Digital Bookshelf is dedicated to creating an inclusive <br>and accessible reading experience for individuals. <br>Empowering readers, one book at a time.</p>
+                <ul class="social-links">
+                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="support-section">
+                <h2>Support</h2>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="shop-section">
+                <h2>Shop</h2>
+                <ul>
+                    <li><a href="#">Books</a></li>
+                    <li><a href="#">Audiobooks</a></li>
+                    <li><a href="#">Subscriptions</a></li>
+                    <li><a href="#">Book Bundles</a></li>
+                </ul>
+            </div>
+
+            <div class="contact-section">
+                <h2>Contact Us</h2>
+                <ul>
+                    <li><span><i class="fa-solid fa-phone"></i></span> <a href="tel:+12345678900">+1 234 567 8900</a></li>
+                    <li><span><i class="fa-solid fa-envelope"></i></span> <a href="mailto:knowmore@gmail.com">knowmore@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <p>Copyright © 2024 Know Me. All Rights Reserved.</p>
+    </div>
+</footer>
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js" defer></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+
+  'use strict';
+
+// Utility function to add event listener to multiple elements
+const addEventOnelem = function (elem, type, callback) {
+  if (elem.length > 1) {
+    for (let i = 0; i < elem.length; i++) {
+      elem[i].addEventListener(type, callback);
+    }
+  } else {
+    elem.addEventListener(type, callback);
+  }
+}
+
+// Navbar toggle functionality
+const navbar = document.querySelector("[data-navbar]");
+const navbarLinks = document.querySelectorAll("[data-nav-link]");
+const navToggler = document.querySelector("[data-nav-toggler]");
+
+const toggleNavbar = function () {
+  navbar.classList.toggle("active");
+  navToggler.classList.toggle("active");
+}
+
+addEventOnelem(navToggler, 'click', toggleNavbar);
+
+const closeNavbar = function () {
+  navbar.classList.remove("active");
+  navToggler.classList.remove("active");
+}
+
+addEventOnelem(navbarLinks, "click", closeNavbar);
+
+// Sticky header on scroll functionality
+const header = document.querySelector("[data-header]");
+
+const activeHeader = function () {
+  if (window.scrollY > 100) {
+    header.classList.add("active");
+  } else {
+    header.classList.remove("active");
+  }
+}
+
+addEventOnelem(window, "scroll", activeHeader);
+
+// Voice Command Functionality
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+  const searchBox = document.getElementById('searchBox');
+  const micButton = document.getElementById('micButton');
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+  recognition.continuous = true;  // Keep recognizing until explicitly stopped
+  recognition.interimResults = false;  
+  recognition.lang = 'en-US'; 
+
+  let recognitionTimeout; // Variable to hold the timeout
+
+  const startRecognition = () => {
+    recognition.start();
+    clearTimeout(recognitionTimeout);
+
+    recognitionTimeout = setTimeout(() => {
+      recognition.stop(); // Stop recognition after 5 minutes
+      alert("Microphone has been turned off after 5 minutes of inactivity.");
+    }, 5 * 60 * 1000); // 5 minutes
+  };
+
+  micButton.addEventListener('click', startRecognition);
+
+  recognition.onresult = (event) => {
+    const command = event.results[0][0].transcript.toLowerCase(); // Get recognized text
+    searchBox.value = command; // Set the search box value to recognized text
+
+    // Check for commands to navigate
+    if (command.includes('go to achievements')) {
+      sessionStorage.setItem('keepMicOn', 'true'); // Store recognition state
+      window.location.href = 'achievement.html'; // Navigate to achievements page
+    } else if (command.includes('go to home')) {
+      sessionStorage.setItem('keepMicOn', 'true'); // Store recognition state
+      window.location.href = 'index.html'; // Navigate to home page
+    }
+    else if (command.includes('go to themes')) {
+      sessionStorage.setItem('keepMicOn', 'true'); // Store recognition state
+      window.location.href = 'Themes.html'; // Navigate to home page
+    }
+    else if (command.includes('go to featured books')) {
+      sessionStorage.setItem('keepMicOn', 'true'); // Store recognition state
+      window.location.href = 'Featured_Books/featured.html'; // Navigate to home page
+    } 
+    else if (command.includes('go to podcast')) {
+      sessionStorage.setItem('keepMicOn', 'true'); // Store recognition state
+      window.location.href = 'Podcast/pcast.php'; // Navigate to home page
+    }
+    else if (command.includes('logout')) {
+      sessionStorage.setItem('keepMicOn', 'true'); // Store recognition state
+      window.location.href = 'LoginSignup/LogIn/login.php'; // Navigate to home page
+    } else {
+      alert('Please say "GO TO ACHIEVEMENTS" or "GO TO HOME" or "GO TO THEMES" or "GO TO PODCAST" to navigate.');
+    }
+
+    clearTimeout(recognitionTimeout);
+    recognitionTimeout = setTimeout(() => {
+      recognition.stop(); // Stop recognition after 5 minutes
+      alert("Microphone has been turned off after 5 minutes of inactivity.");
+    }, 5 * 60 * 1000); // 5 minutes
+  };
+
+  recognition.onerror = (event) => {
+    console.error('Speech recognition error:', event.error);
+    alert('An error occurred. Please try again.');
+  };
+
+  recognition.onend = () => {
+    // Check if mic should remain on across pages
+    if (sessionStorage.getItem('keepMicOn') === 'true') {
+      sessionStorage.removeItem('keepMicOn');
+      startRecognition(); // Restart recognition after navigation
+    } else {
+      alert("Microphone has been turned off.");
+    }
+  };
+
+  // Start recognition if stored in sessionStorage
+  if (sessionStorage.getItem('keepMicOn') === 'true') {
+    startRecognition();
+  }
+
+} else {
+  console.error('Speech recognition not supported in this browser.');
+  alert('Speech recognition is not supported in this browser. Please try another browser.');
+}
+
+
+
+
+
+</script>
+</body>
+
+
+</html>

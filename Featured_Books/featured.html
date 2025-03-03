@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Site Icon / Thumbnail -->
+    <link rel="icon" type="image/x-icon" href="b1.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Custom CSS Links -->
+    <link rel="stylesheet" href="cc.css">
+    <link rel="stylesheet" href="style_feature.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Preload Image -->
+    <link rel="preload" as="image" href="./assets_feature/hero-banner.png">
+    <style>
+      /* Mic Icon at Top Right Corner */
+.mic-container {
+    position: fixed;
+    top: 20px;
+    right: 20px; /* Changed from left to right */
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.mic-container i {
+    font-size: 24px;
+}
+
+/* Back Arrow at Bottom Left Corner */
+.back-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* Changed from right to left */
+    background-color: black;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.back-btn i {
+    font-size: 24px;
+}
+
+    </style>
+    <title>Featured Books</title>
+</head>
+<body>
+    
+
+    <!-- Featured Books Section -->
+    <section class="section preview">
+        <div class="container">
+            <!-- <h1 class="section-title">Featured Books</h1> -->
+            <p class="section-subtitle">Book Preview</p>
+
+            <h2 class="h2 section-title has-underline">
+                Featured Books
+              <span class="span has-before"></span>
+            </h2>
+  
+            <div class="featured-books-grid">
+                
+                <!-- Book Card 1 -->
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="assets_feature/book_11.jpg" alt="Fictional Novel">
+                        <div class="book-overlay">
+                            <a href="preview_BG.html" class="learn-more-btn">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h2 class="book-title">Fictional Novel</h2>
+                        <p class="book-author"><strong>Sam J.</strong></p>
+                        <p class="book-categories">Literary Fiction, Coming-of-age, Psychological Drama</p>
+                        <p class="book-price">&#8377; 345 <span class="original-price"><del>&#8377; 560</del></span></p>
+                    </div>
+                </div>
+                
+                <!-- Book Card 2 -->
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="assets_feature/book_7.png" alt="Fiction">
+                        <div class="book-overlay">
+                            <a href="#" class="learn-more-btn">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h2 class="book-title">Fiction</h2>
+                        <p class="book-author"><strong>John Doe</strong></p>
+                        <p class="book-categories">Art and Architecture, Travel & Culture</p>
+                        <p class="book-price">&#8377; 1250 <span class="original-price"><del>&#8377; 1380</del></span></p>
+                    </div>
+                </div>
+                
+                <!-- Book Card 3 -->
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="assets_feature/book_9.jpg" alt="Education">
+                        <div class="book-overlay">
+                            <a href="#" class="learn-more-btn">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h2 class="book-title">Education</h2>
+                        <p class="book-author"><strong>Peter Crodrown</strong></p>
+                        <p class="book-categories">Psychological or Literary Fiction, Adventure</p>
+                        <p class="book-price">&#8377; 250 <span class="original-price"><del>&#8377; 370</del></span></p>
+                    </div>
+                </div>
+                
+                <!-- Book Card 4 -->
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="assets_feature/book_5.jpg" alt="Non-fiction">
+                        <div class="book-overlay">
+                            <a href="#" class="learn-more-btn">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h2 class="book-title">Non-fiction</h2>
+                        <p class="book-author"><strong>Luccy Crehan</strong></p>
+                        <p class="book-categories">Thriller - Suspense, Adventure</p>
+                        <p class="book-price">&#8377; 400 <span class="original-price"><del>&#8377; 500</del></span></p>
+                    </div>
+                </div>
+                
+                <!-- Book Card 5 -->
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="assets_feature/book_em.jpg" alt="Motivational">
+                        <div class="book-overlay">
+                            <a href="preview_EM.html" class="learn-more-btn">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h2 class="book-title">Motivational</h2>
+                        <p class="book-author"><strong>Gaur Gopal Das</strong></p>
+                        <p class="book-categories">Self-help, Inspirational, Spiritual</p>
+                        <p class="book-price">&#8377; 280 <span class="original-price"><del>&#8377; 380</del></span></p>
+                    </div>
+                </div>
+
+                <!-- Book Card 6 -->
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="assets_feature/WF_cover.jpg" alt="Motivational">
+                        <div class="book-overlay">
+                            <a href="preview_APJ.html" class="learn-more-btn">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="book-details">
+                        <h2 class="book-title">Wings of Fire - An Autobiography</h2>
+                        <p class="book-author"><strong>A. P. J. Abdul Kalam & Arun Tiwari</strong></p>
+                        <p class="book-categories"> Autobiography, Biography, Inspirational Fiction</p>
+                        <p class="book-price">&#8377; 780 <span class="original-price"><del>&#8377; 899</del></span></p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+  
+</a>
+</body>
+<script>
+    // Function to play the voice note 3 seconds after the page loads
+    function playVoiceNote() {
+        const voiceNote = new SpeechSynthesisUtterance(
+            "Here are some featured books on BOOKISHELF. The most Featured books varies by categories. " +
+            "Specifically, these are: Energize your mind - A self-help & motivation by Gaur Gopal Das, " +
+            "Boring girls - A Fictional Novel by Sara Taylor, Wings of Fire - An autobiography of A.P.J. Kalam & many more. " +
+            "If you want to learn more about a book, just say the name of the book."
+        );
+        window.speechSynthesis.speak(voiceNote);
+
+        voiceNote.onend = () => {
+            listenForBookCommand();  // Start listening for book name after voice note finishes
+        };
+    }
+
+    // Function to listen for the user input (book name)
+    function listenForBookCommand() {
+        // Initialize speech recognition
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-US';
+
+        recognition.onresult = (event) => {
+            const userSpeech = event.results[0][0].transcript.toLowerCase();
+            console.log("User said: ", userSpeech);
+
+            // Check if the user mentioned a specific book
+            if (userSpeech.includes("energize your mind")) {
+                const confirmation = new SpeechSynthesisUtterance("Let's know more about Energize Your Mind.");
+                window.speechSynthesis.speak(confirmation);
+
+                confirmation.onend = () => {
+                    // Redirect to the specific book's preview page with query parameter to continue with the voice note
+                    window.location.href = "preview_EM.html?book=energize_your_mind";
+                };
+            } else if (userSpeech.includes("boring girls")) {
+                const confirmation = new SpeechSynthesisUtterance("Let's know more about Boring Girls.");
+                window.speechSynthesis.speak(confirmation);
+
+                confirmation.onend = () => {
+                    // Redirect to Boring Girls preview page (you'll need a similar preview page for each book)
+                    window.location.href = "preview_BG.html?book=boring_girls";
+                };
+            } else if (userSpeech.includes("wings of fire")) {
+                const confirmation = new SpeechSynthesisUtterance("Let's know more about Wings of Fire.");
+                window.speechSynthesis.speak(confirmation);
+
+                confirmation.onend = () => {
+                    // Redirect to Wings of Fire preview page
+                    window.location.href = "preview_APJ.html?book=wings_of_fire";
+                };
+            } else {
+                const notRecognized = new SpeechSynthesisUtterance("Sorry, I didn't recognize that book. Please try again.");
+                window.speechSynthesis.speak(notRecognized);
+                // Restart listening
+                recognition.start();
+            }
+        };
+
+        recognition.onerror = (event) => {
+            console.error("Speech recognition error: ", event.error);
+        };
+
+        // Start listening
+        recognition.start();
+    }
+
+    // Start playing the voice note 3 seconds after the page loads
+    window.onload = () => {
+        setTimeout(playVoiceNote, 1000);
+    };
+</script>
+</body>
+</html>

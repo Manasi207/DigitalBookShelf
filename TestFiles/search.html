@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Bar Example</title>
+</head>
+<body>
+
+  <h1>Simple Search Bar</h1>
+  
+  <!-- Search Bar -->
+  <input type="text" id="search-bar" placeholder="Search..." onkeyup="searchFunction()" />
+  
+  <!-- Results Section -->
+  <ul id="results-list">
+    <li>Apple</li>
+    <li>Banana</li>
+    <li>Cherry</li>
+    <li>Date</li>
+    <li>Grapes</li>
+    <li>Mango</li>
+    <li>Orange</li>
+    <li>Pineapple</li>
+  </ul>
+
+  <script>
+    // Function to search through the list
+    function searchFunction() {
+      // Get the value of the input field
+      let input = document.getElementById('search-bar').value.toLowerCase();
+      
+      // Get the list of items
+      let items = document.getElementById('results-list').getElementsByTagName('li');
+      
+      // Loop through the list and hide/show items based on search query
+      for (let i = 0; i < items.length; i++) {
+        let itemText = items[i].textContent || items[i].innerText;
+        if (itemText.toLowerCase().indexOf(input) > -1) {
+          items[i].style.display = "";
+        } else {
+          items[i].style.display = "none";
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

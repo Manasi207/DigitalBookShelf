@@ -1,0 +1,118 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text to Speech</title>
+</head>
+<body>
+
+  <h1>Text-to-Speech Demo</h1>
+  <div class="card" style="width: 18rem;">
+    <img src="images/s1.png" class="card-img-top" alt="..." style="object-fit: cover;height: 200px;">
+    <div class="card-body">
+      <p class="card-text">Title of Book
+        <button onclick="viewContent()">
+            <a class="view-icon" href="books/WT_Pr2.pdf" >
+
+        <i class="fas fa-eye"></i> 
+    </a>
+      </button>
+    
+      <button onclick="viewContent()">
+        <a class="view-icon" href="books/WT_Pr2.pdf" download="Book1_TheAdventuresOfJohnDoe.pdf">
+
+    <i class="fas fa-download"></i> 
+</a>
+  </button>
+
+
+
+
+
+  
+      <!-- Icon for "TTS" (Volume/Audio icon) -->
+      <button onclick="speakText()">
+        <i class="fas fa-volume-up"></i> 
+      </button>
+    </p>
+     
+    </div>
+  <!-- Input field to enter the text -->
+  <textarea id="text-input" rows="4" cols="50" placeholder="Type text here..."></textarea>
+  <br/><br/>
+  
+  <!-- Button to trigger TTS -->
+  <button onclick="speakText()">Speak</button>
+
+  <script >
+// Function to convert text to speech
+function speakText() {
+  const text = document.getElementById('text-input').value;
+
+  // Check if the browser supports the SpeechSynthesis API
+  if ('speechSynthesis' in window) {
+    // Create a new instance of SpeechSynthesisUtterance
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Set options for the voice (optional)
+    utterance.pitch = 1;  // Range: 0 to 2
+    utterance.rate = 1;   // Range: 0.1 to 10
+    utterance.volume = 1; // Range: 0 to 1
+
+    // Speak the text
+    window.speechSynthesis.speak(utterance);
+  } else {
+    alert('Sorry, your browser does not support text-to-speech!');
+  }
+}
+
+
+  </script>
+
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF.js Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+        
+        function readPDF(pdfUrl) {
+            const loadingTask = pdfjsLib.getDocument(pdfUrl);
+            loadingTask.promise.then(pdf => {
+                return pdf.getPage(1).then(page => {
+                    const viewport = page.getViewport({ scale: 1 });
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    document.body.appendChild(canvas);
+                    
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    return page.render(renderContext).promise;
+                });
+            }).then(() => {
+                const utterance = new SpeechSynthesisUtterance("PDF loaded and rendered.");
+                speechSynthesis.speak(utterance);
+            }).catch(error => {
+                console.error('Error loading PDF:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <button onclick="readPDF('path/to/your/test.pdf')">Load PDF</button>
+</body>
+</html>

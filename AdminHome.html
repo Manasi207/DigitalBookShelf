@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>home</title>
+
+   <!-- font awesome cdn link  -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <!-- custom css file link  -->
+   <link rel="stylesheet" href="css/style.css">
+
+   <!-- Smooth scroll behavior -->
+   <style>
+      html {
+         scroll-behavior: smooth;
+      }
+   </style>
+
+</head>
+<body>
+
+<header class="header">
+   
+   <section class="flex">
+      <div class="icons">
+         <div id="menu-btn" class="fas fa-bars"></div>
+         <a href="AdminHome.html" class="logo"><b>Bookshelf</b></a>
+      </div>
+   
+      <form action="search.html" method="post" class="search-form">
+         <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
+         <button type="submit" class="fas fa-search"></button>
+      </form>
+      
+      <div class="icons">
+         <div id="search-btn" class="fas fa-search"></div>
+         <div id="user-btn" class="fas fa-user"></div>
+               <!-- Dropdown for logout option -->
+               <div id="user-dropdown" class="dropdown-content">
+                  <a href="Admin_Login/AdminLogin.php" class="logout-btn">Logout</a>
+               </div>
+      </div>
+
+      <div class="profile">
+         <img src="images/pic-1.jpg" class="image" alt="">
+         <h3 class="name">Admin</h3>
+         <p class="role">ABC</p>
+         <a href="AdminProfile.html" class="btn">view profile</a>
+         
+      </div>
+
+   </section>
+
+</header>   
+
+<div class="side-bar">
+
+   <div id="close-btn">
+      <i class="fas fa-times"></i>
+   </div>
+
+   <div class="profile">
+      <img src="images/pic-1.jpg" class="image" alt="">
+      <h2 class="name" ><b>Admin</b></h2>
+      <h6 class="role">a. b. c.</h6>
+      <a href="AdminProfile.html" class="btn">view profile</a>
+   </div>
+
+   <nav class="navbar">
+      <a href="#courses"><i class="fas fa-home"></i><span>Home</span></a> <!-- Modified to scroll to courses section -->
+      <a href="LoginSignup/Admin/admin_page.php"><i class="fas fa-users"></i><span>Manage User</span></a>
+      <!-- <a href="#"><i class="fas fa-user-edit"></i><span>Manage Author</span></a> -->
+      <a href="AdminExploreSpiritual.php"><i class="fas fa-book"></i><span>Book Stock</span></a>
+      <!-- <a href="#"><i class="fas fa-chart-line"></i><span>Manage Sales</span></a> -->
+      <a href="#"><i class="fas fa-star"></i><span>Featured eBooks</span></a>
+      <a href="#"><i class="fas fa-money-bill-wave"></i><span>Transactions</span></a>
+  </nav>
+  
+</div>
+
+<section class="home-grid">
+
+
+<!-- Modified "Our Courses" section with id="courses" -->
+<section id="courses" class="courses">
+
+   <h1 class="heading">Dashboard</h1>
+
+   <div class="box-container">
+
+      <div class="box">
+         
+         <div class="thumb">
+            <!-- <img src="images/thumb-1.png" alt=""> -->
+            <i class="fas fa-users icon"></i>
+         </div>
+         <!-- <h3 class="title">complete HTML tutorial</h3> -->
+         <a href="LoginSignup/Admin/admin_page.php" class="inline-btn">Manage Users</a>
+      </div>
+
+      <!-- <div class="box">
+        
+         <div class="thumb">
+            <i class="fas fa-user-edit icon"></i>
+           
+         </div>
+       
+         <a href="#" class="inline-btn">Manage Authors</a>
+      </div> -->
+
+      <div class="box">
+         
+         <div class="thumb">
+            <i class="fas fa-book icon"></i>
+           
+         </div>
+         
+         <a href="AdminExploreSpiritual.php" class="inline-btn">Book Stocks</a>
+      </div>
+
+      <!-- <div class="box">
+         
+         <div class="thumb">
+            <i class="fas fa-chart-line icon"></i>
+           
+         </div>
+         
+         <a href="#" class="inline-btn">Manage Sales</a>
+      </div> -->
+
+      <div class="box">
+         
+         <div class="thumb">
+            <i class="fas fa-star icon"></i>
+           
+         </div>
+         <!-- <h3 class="title">complete HTML tutorial</h3> -->
+         <a href="#" class="inline-btn">Features E-Books</a>
+      </div>
+      
+      <div class="box">
+         
+         <div class="thumb">
+            <i class="fas fa-money-bill-wave icon"></i>
+           
+         </div>
+         <!-- <h3 class="title">complete HTML tutorial</h3> -->
+         <a href="#" class="inline-btn">Transactions</a>
+      </div>
+    
+
+
+   <div class="more-btn">
+      <a href="#" class="inline-option-btn">view all courses</a>
+   </div>
+
+</section>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

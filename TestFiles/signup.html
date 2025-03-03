@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="signup.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body style="background-color: hsl(20, 43%, 93%);font-family: 'Philosopher' , sans-serif;">
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo"><ion-icon name="book-sharp"></ion-icon>Bookish</a>
+            <!-- <nav class="nav">
+                <a href="login.html" class="navbar">Home</a>
+                <a href="../CommingSoon/coming-soon.html" class="navbar">About</a>
+                <a href="../CommingSoon/coming-soon.html" class="navbar">Reviews</a>
+                <a href="../CommingSoon/coming-soon.html" class="navbar">Contact</a>
+            </nav> -->
+        </div>
+    </header>
+
+    <main>
+        <section class="signup-section">
+            <div class="signup-container">
+                <h2>Sign Up</h2>
+                <form class="signup-form" id="signup-form">
+                    <div class="input-group">
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                        <button onclick="voice('name')" class="voice-search" id="voicesearch"><ion-icon name="mic-outline"></ion-icon></button>
+                        <span class="error-message" id="name-error"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        <button onclick="voice('email')" class="voice-search" id="voicesearch"><ion-icon name="mic-outline"></ion-icon></button>
+                        <span class="error-message" id="email-error"></span>
+                        <!-- <small class="voice-instruction" id="email-instruction">
+                            Please spell out your email address, letter by letter. Say "at" for '@' and "dot" for '.'.
+                        </small> Instruction text -->
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <button onclick="voice('password')" class="voice-search" id="voicesearch"><ion-icon name="mic-outline"></ion-icon></button>
+                        <span class="error-message" id="password-error"></span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="confirm-password" name="confirm-password"
+                            placeholder="Confirm your password" required>
+                            <button onclick="voice('confirm-password')" class="voice-search" id="voicesearch"><ion-icon name="mic-outline"></ion-icon></button>
+                            <span class="error-message" id="confirm-password-error"></span>
+                    </div>
+                    <button type="submit" class="signup-btn" href="index.html">Sign Up</button>
+                </form>
+                <p class="login-link">Already have an account? <a href="login.html">Login</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Bookish. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="signup.js"></script> 
+</body>
+
+</html>

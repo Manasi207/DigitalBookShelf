@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
+    <style>
+        .book-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+        }
+        .view-icon {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Book List</h1>
+    
+    <!-- Book 1 Card -->
+    <div class="book-card">
+        <h3>Book 1: The Adventures of John Doe</h3>
+        <p>Author: John Doe</p>
+        <a class="view-icon" href="books/WT_Pr2.pdf" download="Book1_TheAdventuresOfJohnDoe.pdf">Download PDF</a>
+        <button class="tts-icon" onclick="readPDF('books/book1.pdf')">Read Aloud</button>
+    </div>
+
+    <script>
+        function readPDF(pdfUrl) {
+            const loadingTask = pdfjsLib.getDocument(pdfUrl);
+            loadingTask.promise.then(pdf => {
+                let textContent = '';
+
+                // Read the first page (you can modify this to read more pages if needed)
+                pdf.getPage(1).then(page => {
+                    return page.getTextContent();
+                }).then(text => {
+                    text.items.forEach(item => {
+                        textContent += item.str + ' '; // Concatenate text strings
+                    });
+
+                    // Use Web Speech API for TTS
+                    const utterance = new SpeechSynthesisUtterance(textContent);
+                    window.speechSynthesis.speak(utterance);
+                });
+            }).catch(error => {
+                console.error('Error loading PDF:', error);
+            });
+        }
+    </script>
+</body>
+</html>
