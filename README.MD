@@ -1,4 +1,4 @@
-# 📚 Digital Book Library
+# 📚 Digital BookShelf
 
 ![image alt](https://github.com/Manasi207/DigitalBookShelf/blob/cdef85d933300a247ccd9de6d5887d78437099f7/DigitalBookshelf_Dashboard.png)
 
