@@ -86,7 +86,7 @@
 
 ### Module Tested: Book Download Forms
 
-### Tool Used: Postman
+### Tool Used: Postman API
 
 ### Tests Conducted:
 
