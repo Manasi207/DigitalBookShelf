@@ -1,0 +1,4 @@
+FAIL - {'username': 'admin', 'pass': 'admin', 'expected': 'success'} (Timeout)
+FAIL - {'username': 'admin', 'pass': 'wrong', 'expected': 'fail'} (Timeout)
+FAIL - {'username': 'user', 'pass': 'admin', 'expected': 'fail'} (Timeout)
+FAIL - {'username': 'user', 'pass': '1234', 'expected': 'fail'} (Timeout)
