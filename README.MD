@@ -52,15 +52,15 @@
 
 #### Component Technology Used
 
-#### Frontend HTML, CSS, JavaScript, Bootstrap
+#### Frontend - HTML, CSS, JavaScript, Bootstrap
 
-#### Backend PHP
+#### Backend - PHP
 
-#### Database MySQL
+#### Database - MySQL
 
-#### Accessibility TTS.js (Text-to-Speech Library)
+#### Accessibility - TTS.js For voice integration(Text-to-Speech Library)
 
-#### Audio Support HTML5 Audio API
+#### Audio Support - HTML5 Audio API
 
 #### Payment System PHP-based payment integration
 
